@@ -4,10 +4,10 @@
 #include "criarTabela.c"
 
 int main(){
-	int opcao = -1;
+	int opcao;
 	cabecalho();
 	do{
-		printf("\nEscolha uma opcao:\n\n");
+		printf("Escolha uma opcão:\n\n");
 		printf("1- Criar tabela\n");
 		printf("2- Listar tabelas\n");
 		printf("3- Criar linha\n");
@@ -20,9 +20,9 @@ int main(){
 		scanf("%d", &opcao);
 		switch(opcao){
 			case 1:
+				cabecalho();
 				criarTabela();
 				cabecalho();
-				printf("Entrou\n");	
 				break;
 			case 0:
 				cabecalho();

@@ -5,6 +5,6 @@ void cabecalho(){
 	system("clear");
 	printf("--------------------\n");
 	printf("      SGBD ITP\n");
-	printf("Autor: Jordeva Lucas\n");
-	printf("--------------------\n");
+	printf("Autor: Jordevá Lucas\n");
+	printf("--------------------\n\n");
 }
