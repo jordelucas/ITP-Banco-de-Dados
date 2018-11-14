@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "cabecalho.c"
 #include "criarTabela.c"
+#include "listarTabelas.c"
 
 int main(){
 	int opcao;
@@ -22,6 +23,11 @@ int main(){
 			case 1:
 				cabecalho();
 				criarTabela();
+				cabecalho();
+				break;
+			case 2:
+				cabecalho();
+				listarTabelas();
 				cabecalho();
 				break;
 			case 0:
