@@ -3,6 +3,7 @@
 #include "cabecalho.c"
 #include "criarTabela.c"
 #include "listarTabelas.c"
+#include "apagarTabela.c"
 
 int main(){
 	int opcao;
@@ -30,6 +31,11 @@ int main(){
 				listarTabelas();
 				cabecalho();
 				break;
+				case 7:
+					cabecalho();
+					apagarTabela();
+					cabecalho();
+					break;
 			case 0:
 				cabecalho();
 				printf("Saindo...\n");
