@@ -31,7 +31,7 @@ void criarTabela() {
 	strcat(nome_tamanho_tabela, "_tamanho.txt");
 
 	//Adicionar nova tabela a lista
-	pont_tabelas = fopen("tabelas//listaTabelas.txt", "ab");
+	pont_tabelas = fopen("tabelas//listaTabelas.txt", "a");
 
 	if (pont_tabelas == NULL){
 		printf("ERRO! O arquivo não foi aberto!\n");
@@ -42,7 +42,7 @@ void criarTabela() {
 	fclose(pont_tabelas);
 
 	//Criar arquivo de dados
-	pont_dados_tabela = fopen(nome_dados_tabela, "ab");
+	pont_dados_tabela = fopen(nome_dados_tabela, "a");
 
 	if (pont_dados_tabela == NULL){
   	printf("ERRO! O arquivo de dados não foi aberto!\n");
@@ -51,7 +51,7 @@ void criarTabela() {
 	fclose(pont_dados_tabela);
 
 	//Criar arquivo dos tamanhos e definir atributos atributos
-	pont_tamanho_tabela = fopen(nome_tamanho_tabela, "ab");
+	pont_tamanho_tabela = fopen(nome_tamanho_tabela, "a");
 
 	if (pont_tamanho_tabela == NULL){
 		printf("ERRO! O arquivo dos tamanhos não foi aberto!\n");

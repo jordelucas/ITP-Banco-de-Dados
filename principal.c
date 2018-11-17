@@ -14,7 +14,7 @@ int main(){
 		printf("2- Listar tabelas\n");
 		printf("3- Criar linha\n");
 		printf("4- Listar dados\n");
-		printf("5- Pesuisar valor\n");
+		printf("5- Pesquisar valor\n");
 		printf("6- Apagar valor\n");
 		printf("7- Apagar Tabela\n");
 		printf("0- Sair\n");
