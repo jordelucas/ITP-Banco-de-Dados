@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <string.h> //para usar a função que concatena strings
-
 void adicionarAtributo (FILE * tabela);
 typedef struct tamanhoAtr Tamanho_Atributo;
 

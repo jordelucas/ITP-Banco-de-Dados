@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "cabecalho.c"
 #include "criarTabela.c"
 #include "listarTabelas.c"
 #include "apagarTabela.c"
+#include "criarLinha.c"
 
 int main(){
 	int opcao;
@@ -29,6 +31,11 @@ int main(){
 			case 2:
 				cabecalho();
 				listarTabelas();
+				cabecalho();
+				break;
+			case 3:
+				cabecalho();
+				criarLinha();
 				cabecalho();
 				break;
 				case 7:

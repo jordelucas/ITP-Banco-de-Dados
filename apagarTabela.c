@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 void apagarTabela(){
   FILE * pont_tabelas;
   FILE * pont_temporario;

@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 void listarTabelas(){
   FILE * pont_tabelas;
   char texto_str[15];
