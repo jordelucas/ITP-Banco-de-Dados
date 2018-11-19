@@ -6,6 +6,7 @@
 #include "listarTabelas.c"
 #include "apagarTabela.c"
 #include "criarLinha.c"
+#include "listarDados.c"
 
 int main(){
 	int opcao;
@@ -38,11 +39,16 @@ int main(){
 				criarLinha();
 				cabecalho();
 				break;
-				case 7:
-					cabecalho();
-					apagarTabela();
-					cabecalho();
-					break;
+			case 4:
+				cabecalho();
+				listarDados();
+				cabecalho();
+				break;
+			case 7:
+				cabecalho();
+				apagarTabela();
+				cabecalho();
+				break;
 			case 0:
 				cabecalho();
 				printf("Saindo...\n");
