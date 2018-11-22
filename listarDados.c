@@ -88,7 +88,7 @@ void listarDados(){
     int inteiros[_inteiro];
     char caracteres[_char];
     double doubles[_double];
-    char strings[_string*30];
+    char strings[_string][30];
   };
 
   Nova_Linha nl;
@@ -124,7 +124,8 @@ void listarDados(){
     			break;
     		case 30:
           printf("%s: ", atr.nome);
-          printf("%s\n", nl.strings);
+          printf("%s\n", nl.strings[_string]);
+          _string++;
     			break;
     		default:
     			printf("\nTipo de dados desconhecido!\n");

@@ -91,7 +91,7 @@ void criarLinha(){
     int inteiros[_inteiro];
     char caracteres[_char];
     double doubles[_double];
-  	char strings[_string*30];
+  	char strings[_string][30];
   };
 
   Nova_Linha nl;
@@ -128,16 +128,8 @@ void criarLinha(){
   		case 30:
         printf("%s (string): ", atr.nome);
         fflush(stdin);
-        if (_string == 0) {
-          memset(nl.strings, ' ', sizeof(nl.strings));
-          scanf("%s", nl.strings);
-          _string++;
-        }else{
-          scanf("%s", stringLida);
-          stringLida[strcspn(stringLida, "\n")] = 0;
-          strcat (nl.strings, " ");
-          strcat (nl.strings, stringLida);
-        }
+        scanf("%s", nl.strings[_string]);
+        _string++;
   			break;
   		default:
   			printf("\nTipo de dados desconhecido!\n");
@@ -148,3 +140,20 @@ void criarLinha(){
   fclose(pont_tamanho_tabela);
   fclose(pont_dados_tabela);
 }
+
+
+/*
+case 30:
+  printf("%s (string): ", atr.nome);
+  fflush(stdin);
+  if (_string == 0) {
+    memset(nl.strings, ' ', sizeof(nl.strings));
+    scanf("%s", nl.strings);
+    _string++;
+  }else{
+    scanf("%s", stringLida);
+    stringLida[strcspn(stringLida, "\n")] = 0;
+    strcat (nl.strings, " ");
+    strcat (nl.strings, stringLida);
+  }
+  break;*/

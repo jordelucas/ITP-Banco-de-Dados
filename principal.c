@@ -1,6 +1,8 @@
+/*--Bibliotecas--*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+/*--Arquivos externos--*/
 #include "cabecalho.c"
 #include "criarTabela.c"
 #include "listarTabelas.c"

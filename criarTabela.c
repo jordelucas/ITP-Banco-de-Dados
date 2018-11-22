@@ -10,21 +10,21 @@ void criarTabela() {
 	FILE *pont_dados_tabela;
 	FILE *pont_tamanho_tabela;
  	FILE *pont_tabelas;
-	char nome_dados_tabela[35] = "";
+	char nome_dados_tabela[35] = "";	//Utilizado para definir o diretório das informações da nova tabela
 	char nome_tamanho_tabela[35] = "";
-	char nome[15];
+	char nomeTabela[15];
 
 	printf("----CRIAR TABELA----\n\n");
 
 	fflush(stdin);
 	printf("Nome da tabela: ");
-	scanf("%s", nome);
+	scanf("%s", nomeTabela);
 
 	strcat(nome_dados_tabela, "dados//");
-	strcat(nome_dados_tabela, nome);
+	strcat(nome_dados_tabela, nomeTabela);
 	strcat(nome_dados_tabela, "_dados.txt");
 	strcat(nome_tamanho_tabela, "tamanhos//");
-	strcat(nome_tamanho_tabela, nome);
+	strcat(nome_tamanho_tabela, nomeTabela);
 	strcat(nome_tamanho_tabela, "_tamanho.txt");
 
 	//Adicionar nova tabela a lista
@@ -33,7 +33,7 @@ void criarTabela() {
 	if (pont_tabelas == NULL){
 		printf("ERRO! O arquivo não foi aberto!\n");
 	}else{
-		fprintf(pont_tabelas, "%s\n", nome);
+		fprintf(pont_tabelas, "%s\n", nomeTabela);
 	}
 
 	fclose(pont_tabelas);
