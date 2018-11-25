@@ -7,6 +7,7 @@ int criarLinha(){
   char * tamanho;
 
   char * nomeTabela = malloc(20*sizeof(char));
+  char * tabelaEscolhida = malloc(20*sizeof(char));
   char novaTabela;
 
   int linha_escolhida = 0;
@@ -29,26 +30,31 @@ int criarLinha(){
   	}else{
       if(fgets(nomeTabela, 20, pont_tabelas) == NULL){
         printf("Não há tabelas cadastradas!\n");
-        printf("Deseja cadastrar uma tabela(s/n)?");
+        printf("Deseja cadastrar uma tabela(s/n)? ");
+        fflush(stdin);
         scanf(" %c", &novaTabela);
         if (novaTabela == 's') {
+          fclose(pont_tabelas);
           cabecalho();
           criarTabela();
           return -1;
         }else{
+          fclose(pont_tabelas);
           return -1;
         }
       }else{
         do {
           printf("%d. %s", ++ordem, nomeTabela);
         } while(fgets(nomeTabela, 20, pont_tabelas) != NULL);
-        printf("\nQual tabela deseja adicionar linha?");
+        fflush(stdin);
+        printf("\nQual tabela deseja adicionar linha? ");
         scanf("%d", &linha_escolhida);
         if (linha_escolhida < 1 || linha_escolhida > ordem) {
           cabecalho();
           ordem = 0;
           printf("---ADICIONAR LINHA--\n\n");
           printf("*Opção Inválida!\n");
+          fclose(pont_tabelas);
         }else{
           fclose(pont_tabelas);
         }
@@ -63,6 +69,7 @@ int criarLinha(){
     while(fgets(nomeTabela, 20, pont_tabelas) != NULL){
       if (linha_atual == linha_escolhida) {
         nomeTabela[strcspn(nomeTabela, "\n")] = 0; //retira o '\n'
+        strcpy(tabelaEscolhida, nomeTabela);
         dados = diretorioDados(nomeTabela);
         tamanho = diretorioTamanhos(nomeTabela);
         linha_atual++;
@@ -72,6 +79,7 @@ int criarLinha(){
     }
   }
   fclose(pont_tabelas);
+  free(nomeTabela);
 
   pont_tamanho_tabela = fopen(tamanho, "r");
   if (pont_tamanho_tabela == NULL){
@@ -118,7 +126,7 @@ int criarLinha(){
   pont_tamanho_tabela = fopen(tamanho, "r");
   cabecalho();
   printf("---ADICIONAR LINHA--\n\n");
-  printf("Adicionando linha a tabela '%s'\n", nomeTabela);
+  printf("Adicionando linha a tabela '%s'\n", tabelaEscolhida);
 
   while (fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela) == 1 ) {
     switch(atr.tamanho){
@@ -126,19 +134,18 @@ int criarLinha(){
         fflush(stdin);
         printf("%s (char): ", atr.nome);
         scanf(" %c", &nl.caracteres[_char]);
-        printf("%c\n", nl.caracteres[_char]);
         _char++;
   			break;
   		case 4:
+        fflush(stdin);
         printf("%s (int): ", atr.nome);
         scanf("%d", &nl.inteiros[_inteiro]);
-        printf("%d\n", nl.inteiros[_inteiro]);
         _inteiro++;
   			break;
   		case 8:
+        fflush(stdin);
         printf("%s (double): ", atr.nome);
         scanf("%lf", &nl.doubles[_double]);
-        printf("%lf\n", nl.doubles[_double]);
         _double++;
   			break;
   		case 30:
@@ -146,7 +153,6 @@ int criarLinha(){
         printf("%s (string): ", atr.nome);
         fflush(stdin);
         scanf("%s", nl.strings[_string]);
-        printf("%s\n", nl.strings[_string]);
         _string++;
   			break;
   		default:
@@ -156,6 +162,7 @@ int criarLinha(){
   }
   fclose(pont_tamanho_tabela);
   free(tamanho);
+  free(tabelaEscolhida);
 
   pont_dados_tabela = fopen(dados, "a");
   if(fwrite(&nl, sizeof(Nova_Linha), 1, pont_dados_tabela) !=1){
@@ -163,6 +170,5 @@ int criarLinha(){
   }
   fclose(pont_dados_tabela);
   free(dados);
-
   return 0;
 }
