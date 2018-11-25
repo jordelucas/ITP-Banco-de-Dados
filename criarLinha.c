@@ -7,8 +7,15 @@ int criarLinha(){
   char * tamanho;
 
   char * nomeTabela = malloc(20*sizeof(char));
+  if(nomeTabela == NULL){
+    printf("Error! memory not allocated.");
+  }
   char * tabelaEscolhida = malloc(20*sizeof(char));
+  if(tabelaEscolhida == NULL){
+    printf("Error! memory not allocated.");
+  }
   char novaTabela;
+  char novaLinha;
 
   int linha_escolhida = 0;
   int ordem = 0;
@@ -35,11 +42,15 @@ int criarLinha(){
         scanf(" %c", &novaTabela);
         if (novaTabela == 's') {
           fclose(pont_tabelas);
+          free(nomeTabela);
+          free(tabelaEscolhida);
           cabecalho();
           criarTabela();
           return -1;
         }else{
           fclose(pont_tabelas);
+          free(nomeTabela);
+          free(tabelaEscolhida);
           return -1;
         }
       }else{
@@ -118,17 +129,20 @@ int criarLinha(){
   };
 
   Nova_Linha nl;
+  Nova_Linha temp;
   _inteiro = 0;
   _double = 0;
   _char = 0;
   _string = 0;
 
   pont_tamanho_tabela = fopen(tamanho, "r");
+  linha_atual = 0;
   cabecalho();
   printf("---ADICIONAR LINHA--\n\n");
   printf("Adicionando linha a tabela '%s'\n", tabelaEscolhida);
 
   while (fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela) == 1 ) {
+    linha_atual++;
     switch(atr.tamanho){
   		case 1:
         fflush(stdin);
@@ -137,9 +151,41 @@ int criarLinha(){
         _char++;
   			break;
   		case 4:
-        fflush(stdin);
-        printf("%s (int): ", atr.nome);
-        scanf("%d", &nl.inteiros[_inteiro]);
+        if (linha_atual == 1) {
+          fflush(stdin);
+          printf("Chave Primária - %s (int): ", atr.nome);
+          scanf("%d", &nl.inteiros[_inteiro]);
+
+          pont_dados_tabela = fopen(dados, "r");
+          while(fread(&temp, sizeof(Nova_Linha), 1, pont_dados_tabela) == 1 ){
+            if (temp.inteiros[0] == nl.inteiros[_inteiro]) {
+              printf("ERRO! Chave primária já cadastrada\n");
+              printf("Deseja criar outra linha(s/n)? ");
+              fflush(stdin);
+              scanf(" %c", &novaLinha);
+              if (novaLinha == 's') {
+                fclose(pont_tamanho_tabela);
+                free(nomeTabela);
+                free(tabelaEscolhida);
+                cabecalho();
+                criarLinha();
+                return -1;
+              }else{
+                fclose(pont_tamanho_tabela);
+                free(nomeTabela);
+                free(tabelaEscolhida);
+                return -1;
+              }
+              return -1;
+            }
+          }
+          fclose(pont_dados_tabela);
+
+        }else{
+          fflush(stdin);
+          printf("%s (int): ", atr.nome);
+          scanf("%d", &nl.inteiros[_inteiro]);
+        }
         _inteiro++;
   			break;
   		case 8:
@@ -161,6 +207,7 @@ int criarLinha(){
     }
   }
   fclose(pont_tamanho_tabela);
+
   free(tamanho);
   free(tabelaEscolhida);
 
@@ -170,5 +217,13 @@ int criarLinha(){
   }
   fclose(pont_dados_tabela);
   free(dados);
+
+  fflush(stdin);
+  printf("Deseja continuar adicionando linhas(s/n)? ");
+  scanf(" %c", &novaLinha);
+  if (novaLinha == 's') {
+    cabecalho();
+    criarLinha();
+  }
   return 0;
 }
