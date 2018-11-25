@@ -59,6 +59,8 @@ void listarDados(){
   };
   fclose(pont_tabelas);
 
+
+
   pont_tamanho_tabela = fopen(tamanho, "r");
   Tamanho_Atributo atr;
 

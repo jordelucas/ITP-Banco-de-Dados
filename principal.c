@@ -3,7 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 /*--Arquivos externos--*/
+#include "funcoesUteis.c"
 #include "cabecalho.c"
+#include "adicionarAtributo.c"
 #include "criarTabela.c"
 #include "listarTabelas.c"
 #include "apagarTabela.c"
