@@ -1,57 +1,76 @@
-void apagarTabela(){
+int apagarTabela(){
   FILE * pont_tabelas;
   FILE * pont_temporario;
-  char texto_str[15];
-  char nome_tabela_escolhina[15] = "";
-  int esc;
+
+  char * dados;
+  char * tamanho;
+
+  char * nomeTabela = malloc(20*sizeof(char));
+  char novaTabela;
+
+  int linha_escolhida = 0;
   int ordem = 0;
   int linha_atual = 1;
-  char dados [35] = "";
-  char tamanho [35] = "";
 
   printf("---APAGAR TABELAS---\n\n");
 
   do{
     pont_tabelas = fopen("tabelas//listaTabelas.txt", "r");
-    while(fgets(texto_str, 15, pont_tabelas) != NULL){
-      printf("%d. %s", ++ordem, texto_str);
-    };
-    printf("\nQual tabela deseja apagar?");
-    scanf("%d", &esc);
-    if (esc < 1 || esc > ordem) {
-      cabecalho();
-      ordem = 0;
-      printf("---APAGAR TABELAS---\n\n");
-      printf("*Opção Inválida!\n");
+    if (pont_tabelas == NULL){
+      printf("ERRO! O arquivo de nomes não foi aberto!\n");
     }else{
-      fclose(pont_tabelas);
+      if(fgets(nomeTabela, 20, pont_tabelas) == NULL){
+        printf("Não há tabelas cadastradas!\n");
+        printf("Deseja cadastrar uma tabela(s/n)? ");
+        fflush(stdin);
+        scanf(" %c", &novaTabela);
+        if (novaTabela == 's') {
+          fclose(pont_tabelas);
+          cabecalho();
+          criarTabela();
+          return -1;
+        }else{
+          fclose(pont_tabelas);
+          return -1;
+        }
+      }else{
+        do {
+          printf("%d. %s", ++ordem, nomeTabela);
+        } while(fgets(nomeTabela, 20, pont_tabelas) != NULL);
+        fflush(stdin);
+        printf("\nQual tabela deseja apagar? ");
+        scanf("%d", &linha_escolhida);
+        if (linha_escolhida < 1 || linha_escolhida > ordem) {
+          cabecalho();
+          ordem = 0;
+          printf("---APAGAR TABELAS---\n\n");
+          printf("*Opção Inválida!\n");
+          fclose(pont_tabelas);
+        }else{
+          fclose(pont_tabelas);
+        }
+      }
     }
-  } while (esc < 1 || esc > ordem);
+  } while (linha_escolhida < 1 || linha_escolhida > ordem);
 
   pont_tabelas = fopen("tabelas//listaTabelas.txt", "r");
   pont_temporario = fopen("tabelas//temporario.txt", "w");
-  while(fgets(texto_str, 15, pont_tabelas) != NULL){
-    if (linha_atual == esc) {
-      strcat(dados, "dados/");
-      //printf("%s\n", dados);
-      strcat (dados, texto_str);
-      //printf("%s\n", dados);
-      dados[strcspn(dados, "\n")] = 0;
-      //printf("%s\n", dados);
-      strcat(dados, "_dados.txt");
-      //printf("%s\n", dados);
-
-      strcat(tamanho, "tamanhos//");
-      strcat (tamanho, texto_str);
-      tamanho[strcspn(tamanho, "\n")] = 0;
-      strcat(tamanho, "_tamanho.txt");
-
+  if (pont_tabelas == NULL || pont_temporario == NULL){
+		printf("ERRO! O arquivo de nomes não foi aberto!\n");
+	}else{
+    while(fgets(nomeTabela, 20, pont_tabelas) != NULL){
+      if (linha_atual == linha_escolhida) {
+        nomeTabela[strcspn(nomeTabela, "\n")] = 0; //retira o '\n'
+        dados = diretorioDados(nomeTabela);
+        tamanho = diretorioTamanhos(nomeTabela);
+        linha_atual++;
+        continue;
+      }
       linha_atual++;
-      continue;
+      fputs(nomeTabela, pont_temporario);
     }
-    linha_atual++;
-    fputs(texto_str, pont_temporario);
-  };
+  }
+  free(nomeTabela);
   fclose(pont_tabelas);
   fclose(pont_temporario);
 
@@ -59,4 +78,6 @@ void apagarTabela(){
   remove(tamanho);
   remove("tabelas//listaTabelas.txt");
   rename("tabelas//temporario.txt", "tabelas//listaTabelas.txt");
+  free(dados);
+  free(tamanho);
 };
