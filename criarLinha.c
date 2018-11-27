@@ -174,26 +174,36 @@ int criarLinha(){
       while (fread(&temp, sizeof(Nova_Linha), 1, pont_dados_tabela) == 1 ){
       if (temp.inteiros[0] == nl.inteiros[_inteiro]) {
         printf("ERRO! Chave primária solicidata já foi cadastrada em outra linha.\n");
-        /*printf("Deseja adicionar outra linha(s/n)? ");
+        printf("Deseja adicionar outra linha(s/n)? ");
         fflush(stdin);
         scanf(" %c", &respSN);
         if (respSN == 's') {
           fclose(pont_dados_tabela);
-          fclose(pont_tamanho_tabela);
+          pont_dados_tabela = NULL;
+          free(pont_dados_tabela);
+          pont_tamanho_tabela = NULL;
+          free(pont_tamanho_tabela);
           free(tabelaEscolhida);
+          dados = NULL;
           free(dados);
+          tamanho = NULL;
           free(tamanho);
           criarLinha();
           return -1;
         }else{
           fclose(pont_dados_tabela);
-          fclose(pont_tamanho_tabela);
+          pont_dados_tabela = NULL;
+          free(pont_dados_tabela);
+          pont_tamanho_tabela = NULL;
+          free(pont_tamanho_tabela);
           free(tabelaEscolhida);
+          dados = NULL;
           free(dados);
+          tamanho = NULL;
           free(tamanho);
           return -1;
         }
-      */}
+      }
     }
   }
   linha_atual = 1;
