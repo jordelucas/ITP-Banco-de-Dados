@@ -2,9 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+/*--Constantes--*/
+#define CHAR 1;
+#define INT 4;
+#define DOUBLE 8;
+#define FLOAT 8;
+#define STRING 20;
+
 /*--Arquivos externos--*/
 #include "funcoesUteis.c"
-#include "cabecalho.c"
 #include "adicionarAtributo.c"
 #include "criarTabela.c"
 #include "listarTabelas.c"
@@ -26,20 +33,18 @@ int main(){
 		printf("7- Apagar Tabela\n");
 		printf("0- Sair\n");
 		printf("Opção: ");
+		fflush(stdin);
 		scanf("%d", &opcao);
 		switch(opcao){
 			case 1:
-				cabecalho();
 				criarTabela();
 				cabecalho();
 				break;
 			case 2:
-				cabecalho();
 				listarTabelas();
 				cabecalho();
 				break;
 			case 3:
-				cabecalho();
 				criarLinha();
 				cabecalho();
 				break;
@@ -56,6 +61,7 @@ int main(){
 			case 0:
 				cabecalho();
 				printf("Saindo...\n");
+				exit(0);
 				break;
 			default:
 				cabecalho();

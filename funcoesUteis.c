@@ -1,3 +1,11 @@
+void cabecalho(){
+	system("clear");
+	printf("--------------------\n");
+	printf("      SGBD ITP\n");
+	printf("Autor: Jordevá Lucas\n");
+	printf("--------------------\n\n");
+}
+
 char* diretorioDados(char * nomeTabela){
   char * nome_dados_tabela = (char *)calloc(1, strlen(nomeTabela)+17);
   strncat(nome_dados_tabela, "dados//", 7);
