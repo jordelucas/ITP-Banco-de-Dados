@@ -18,6 +18,7 @@
 #include "apagarTabela.c"
 #include "criarLinha.c"
 #include "listarDados.c"
+#include "apagarLinha.c"
 
 int main(){
 	int opcao;
@@ -50,6 +51,10 @@ int main(){
 				break;
 			case 4:
 				listarDados();
+				cabecalho();
+				break;
+			case 6:
+				apagarLinha();
 				cabecalho();
 				break;
 			case 7:
