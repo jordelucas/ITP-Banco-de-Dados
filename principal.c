@@ -49,7 +49,6 @@ int main(){
 				cabecalho();
 				break;
 			case 4:
-				cabecalho();
 				listarDados();
 				cabecalho();
 				break;
@@ -65,7 +64,7 @@ int main(){
 				break;
 			default:
 				cabecalho();
-				printf("\nOpção Inválida!\n");
+				printf("Opção Inválida!\n");
 				break;
 		}
 	}while(opcao != 0);

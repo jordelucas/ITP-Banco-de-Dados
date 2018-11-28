@@ -24,18 +24,13 @@ int listarTabelas(){
       scanf(" %c", &respSN);
       if (respSN == 's') {
         fclose(pont_tabelas);
-        texto_str = NULL;
         free(texto_str);
-        pont_tabelas = NULL;
-        free(pont_tabelas);
         criarTabela();
         return -1;
       }else{
         fclose(pont_tabelas);
-        texto_str = NULL;
         free(texto_str);
-        pont_tabelas = NULL;
-        free(pont_tabelas);
+        texto_str = NULL;
         return -1;
       }
     }else{                                                    //Havendo linhas, são listados os nomes das tabelas
@@ -53,9 +48,7 @@ int listarTabelas(){
     }
 	}
   fclose(pont_tabelas);
-  texto_str = NULL;
   free(texto_str);
-  pont_tabelas = NULL;
-  free(pont_tabelas);
+  texto_str = NULL;
   return 0;
 }

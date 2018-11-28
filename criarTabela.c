@@ -14,6 +14,8 @@ void criarTabela() {
 		exit(0);
 	}
 
+  char respSN;                                                //variável para respostas Sim ou Não do usuário
+
 	printf("----CRIAR TABELA----\n\n");
 
 	fflush(stdin);
@@ -29,8 +31,6 @@ void criarTabela() {
 		fprintf(pont_tabelas, "%s\n", nomeTabela);
 	}
 	fclose(pont_tabelas);
-	pont_tabelas = NULL;
-	free(pont_tabelas);
 
 	//Cria arquivo de dados
 	nome_dados_tabela = diretorioDados(nomeTabela);
@@ -40,10 +40,8 @@ void criarTabela() {
 		exit(0);
 	}
 	fclose(pont_dados_tabela);
-	pont_dados_tabela = NULL;
-	free(pont_dados_tabela);
-	pont_dados_tabela = NULL;
 	free(nome_dados_tabela);
+	pont_dados_tabela = NULL;
 
 	//Cria arquivo dos tamanhos e define atributos a tabela
 	nome_tamanho_tabela = diretorioTamanhos(nomeTabela);
@@ -55,10 +53,16 @@ void criarTabela() {
 		adicionarAtributo(pont_tamanho_tabela, nomeTabela);
 	}
 	fclose(pont_tamanho_tabela);
-	pont_tamanho_tabela = NULL;
-	free(pont_tamanho_tabela);
-	nomeTabela = NULL;
 	free(nomeTabela);
-	nome_tamanho_tabela = NULL;
+	nomeTabela = NULL;
 	free(nome_tamanho_tabela);
+	nome_tamanho_tabela = NULL;
+
+	printf("\n*A tabela foi criada e adicionada ao banco!*\n");
+	/*fflush(stdin);
+	printf("Deseja continuar adicionando tabelas(s/n)? ");
+	scanf(" %c", &respSN);
+	if (respSN == 's') {
+		criarTabela();
+	}*/
 }

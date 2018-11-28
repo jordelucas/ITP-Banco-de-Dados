@@ -52,16 +52,18 @@ int criarLinha(){
         scanf(" %c", &respSN);
         if (respSN == 's') {
           fclose(pont_tabelas);
-          /*free(nomeTabela);
+          free(nomeTabela);
+          nomeTabela = NULL;
           free(tabelaEscolhida);
-          free(pont_tabelas);*/
+          tabelaEscolhida = NULL;
           criarTabela();
           return -1;
         }else{
           fclose(pont_tabelas);
-          /*free(nomeTabela);
+          free(nomeTabela);
+          nomeTabela = NULL;
           free(tabelaEscolhida);
-          free(pont_tabelas);*/
+          tabelaEscolhida = NULL;
           return -1;
         }
       }else{                                                             //Havendo linhas, são listados os nomes das tabelas com um indice ao lado
@@ -102,14 +104,14 @@ int criarLinha(){
       linha_atual++;
     }
   }
+  printf("nao\n");
   fclose(pont_tabelas);
-  pont_tabelas = NULL;
-  free(pont_tabelas);
-  nomeTabela = NULL;
   free(nomeTabela);
+  nomeTabela = NULL;
 
   /*Contagem da quantidade de cada tipo de dados da tabela*/
   pont_tamanho_tabela = fopen(tamanho, "r");
+  printf("aqui\n");
   if (pont_tamanho_tabela == NULL){
 		printf("ERRO! O arquivo de tamanhos não foi aberto.\n");
     exit(0);
@@ -134,8 +136,8 @@ int criarLinha(){
       }
     }
   }
-  fclose(pont_tamanho_tabela);
 
+  fclose(pont_tamanho_tabela);
   /*Define estrutura nova linha, que possui arrays que guardam os atributos da linha a partir dos tipos de dados*/
   typedef struct linha Nova_Linha;
   struct linha{
@@ -179,28 +181,22 @@ int criarLinha(){
         scanf(" %c", &respSN);
         if (respSN == 's') {
           fclose(pont_dados_tabela);
-          pont_dados_tabela = NULL;
-          free(pont_dados_tabela);
-          pont_tamanho_tabela = NULL;
-          free(pont_tamanho_tabela);
-          free(tabelaEscolhida);
-          dados = NULL;
           free(dados);
-          tamanho = NULL;
+          dados = NULL;
+          free(tabelaEscolhida);
+          tabelaEscolhida = NULL;
           free(tamanho);
+          tamanho = NULL;
           criarLinha();
           return -1;
         }else{
           fclose(pont_dados_tabela);
-          pont_dados_tabela = NULL;
-          free(pont_dados_tabela);
-          pont_tamanho_tabela = NULL;
-          free(pont_tamanho_tabela);
           free(tabelaEscolhida);
-          dados = NULL;
+          tabelaEscolhida = NULL;
           free(dados);
-          tamanho = NULL;
+          dados = NULL;
           free(tamanho);
+          tamanho = NULL;
           return -1;
         }
       }
@@ -249,12 +245,10 @@ int criarLinha(){
     }
   }
   fclose(pont_tamanho_tabela);
-  pont_tamanho_tabela = NULL;
-  free(pont_tamanho_tabela);
-  tamanho = NULL;
   free(tamanho);
-  tabelaEscolhida = NULL;
+  tamanho = NULL;
   free(tabelaEscolhida);
+  tabelaEscolhida = NULL;
 
   /*Salva a estrutura com os valores dos atribu da linha no respectivo arquivo ed dados*/
   pont_dados_tabela = fopen(dados, "a");
@@ -263,9 +257,15 @@ int criarLinha(){
     exit(0);
   }
   fclose(pont_dados_tabela);
-  pont_dados_tabela = NULL;
-  free(pont_dados_tabela);
-  dados = NULL;
   free(dados);
+  dados = NULL;
+
+  printf("\n*Os dados foram salvos no banco!*\n");
+  fflush(stdin);
+  printf("Deseja continuar adicionando linhas(s/n)? ");
+  scanf(" %c", &respSN);
+  if (respSN == 's') {
+    criarLinha();
+  }
   return 0;
 }

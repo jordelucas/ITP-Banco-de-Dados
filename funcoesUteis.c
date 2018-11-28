@@ -15,7 +15,7 @@ char* diretorioDados(char * nomeTabela){
 }
 
 char* diretorioTamanhos(char * nomeTabela){
-  char * nome_tamanho_tabela = (char *)calloc(1, strlen(nomeTabela)+22);
+	char * nome_tamanho_tabela = (char *)calloc(1, strlen(nomeTabela)+22);
   strncat(nome_tamanho_tabela, "tamanhos//", 10);
   strncat(nome_tamanho_tabela, nomeTabela, strlen(nomeTabela));
   strncat(nome_tamanho_tabela, "_tamanho.txt", 12);
