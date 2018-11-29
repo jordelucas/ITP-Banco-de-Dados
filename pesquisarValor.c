@@ -22,12 +22,13 @@ int pesquisarValor(){
 		exit(0);
 	}
 
-	char * atributoEscolhido = (char*)malloc(21*sizeof(char));
-	if(atributoEscolhido == NULL){
+	char * nomeAtributoEscolhido = (char*)malloc(21*sizeof(char));
+	if(nomeAtributoEscolhido == NULL){
 		printf("ERRO! Memória não alocada.");
 		exit(0);
 	}
 
+	int tipoAtributoEscolhido;
 
 	char respSN;                                                    //variável para respostas Sim ou Não do usuário
 
@@ -43,6 +44,9 @@ int pesquisarValor(){
 	int _string = 0;
 
 	Tamanho_Atributo atr;
+
+	int intLido;
+	double doubleLido;
 
 	printf("---PESQUISAR VALOR--\n\n");
 
@@ -202,7 +206,8 @@ int pesquisarValor(){
 		while (fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela) == 1 ) {
 			if (linha_atual == linha_escolhida) {
         		linha_atual++;
-        		strcpy(atributoEscolhido, atr.nome);
+        		strcpy(nomeAtributoEscolhido, atr.nome);
+        		tipoAtributoEscolhido = atr.tamanho;
         		continue;
 			}
       		linha_atual++;
@@ -212,9 +217,310 @@ int pesquisarValor(){
 
 	cabecalho();
 	printf("---PESQUISAR VALOR--\n\n");
-	printf("Pesquisando valores de '%s' na tabela '%s'!\n", atributoEscolhido, tabelaEscolhida);
-
+	printf("Pesquisando valores de '%s' na tabela '%s'!\n", nomeAtributoEscolhido, tabelaEscolhida);
+	printf("Escolha uma das opções: \n\n");
 	
+	if (tipoAtributoEscolhido == 4 || tipoAtributoEscolhido == 8){
+		do{
+			printf("1. valores maior que o valor informado\n");
+			printf("2. valores maior ou igual que o valor informado\n");
+			printf("3. valores igual o valor informado\n");
+			printf("4. valores menor que o valor informado\n");
+			printf("5. valores menor ou igual que o valor informado\n");
+			fflush(stdin);
+			printf("\nOpção: ");
+			scanf("%d", &linha_escolhida);
+			if (linha_escolhida < 1 || linha_escolhida > 5) {            //Controle de que o indice solicitado seja um dos exibidos na tela
+				cabecalho();
+				printf("---PESQUISAR VALOR--\n\n");
+				printf("Pesquisando valores de '%s' na tabela '%s'!\n", nomeAtributoEscolhido, tabelaEscolhida);
+				printf("Escolha uma opcao: \n\n");
+				printf("*Opção Inválida!\n");
+			}
+		} while (linha_escolhida < 1 || linha_escolhida > 5);
 
+		cabecalho();
+		printf("---PESQUISAR VALOR--\n\n");
+		printf("Pesquisando valores de '%s' na tabela '%s'!\n\n", nomeAtributoEscolhido, tabelaEscolhida);
+
+		switch(linha_escolhida){
+			case 1:
+				pont_dados_tabela = fopen(dados, "r");
+				printf("--Valores maiores que o valor informado--\n");
+				if (tipoAtributoEscolhido == 4) {
+					printf("Informe um numero para comparar: ");
+					scanf("%d", &intLido);
+					printf("\n");
+					while (fread(&nl, sizeof(Nova_Linha), 1, pont_dados_tabela) == 1 ) {
+						pont_tamanho_tabela = fopen(tamanho, "r");
+						while (fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela) == 1 ) {
+							if (strcmp (atr.nome, nomeAtributoEscolhido) == 0){
+								if (intLido < nl.inteiros[_inteiro]){
+									printf("**************************\n");
+									printf("-- Chave Primária: %d\n", nl.inteiros[0]);
+									printf("-- %s: %d\n", nomeAtributoEscolhido, nl.inteiros[_inteiro]);
+								}
+							}
+							_inteiro++;
+							_double++;
+						}
+						_inteiro = 0;
+						_double = 0;
+						_char = 0;
+						_string = 0;
+						fclose(pont_tamanho_tabela);
+					}
+				}else{
+					printf("Informe um numero para comparar: ");
+					scanf("%lf", &doubleLido);
+					printf("\n");
+					while (fread(&nl, sizeof(Nova_Linha), 1, pont_dados_tabela) == 1 ) {
+						pont_tamanho_tabela = fopen(tamanho, "r");
+						while (fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela) == 1 ) {
+							if (strcmp (atr.nome, nomeAtributoEscolhido) == 0){
+								if (doubleLido < nl.doubles[_double]){
+									printf("**************************\n");
+									printf("-- Chave Primária: %d\n", nl.inteiros[0]);
+									printf("-- %s: %lf\n", nomeAtributoEscolhido, nl.doubles[_double]);
+								}
+							}
+							_inteiro++;
+							_double++;
+						}
+						_inteiro = 0;
+						_double = 0;
+						_char = 0;
+						_string = 0;
+						fclose(pont_tamanho_tabela);
+					}
+
+				}
+				pont_dados_tabela;
+				break;
+			case 2:
+				pont_dados_tabela = fopen(dados, "r");
+				printf("--Valores maiores ou iguais que o valor informado--\n");
+				if (tipoAtributoEscolhido == 4) {
+					printf("Informe um numero para comparar: ");
+					scanf("%d", &intLido);
+					printf("\n");
+					while (fread(&nl, sizeof(Nova_Linha), 1, pont_dados_tabela) == 1 ) {
+						pont_tamanho_tabela = fopen(tamanho, "r");
+						while (fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela) == 1 ) {
+							if (strcmp (atr.nome, nomeAtributoEscolhido) == 0){
+								if (intLido <= nl.inteiros[_inteiro]){
+									printf("**************************\n");
+									printf("-- Chave Primária: %d\n", nl.inteiros[0]);
+									printf("-- %s: %d\n", nomeAtributoEscolhido, nl.inteiros[_inteiro]);
+								}
+							}
+							_inteiro++;
+							_double++;
+						}
+						_inteiro = 0;
+						_double = 0;
+						_char = 0;
+						_string = 0;
+						fclose(pont_tamanho_tabela);
+					}
+				}else{
+					printf("Informe um numero para comparar: ");
+					scanf("%lf", &doubleLido);
+					printf("\n");
+					while (fread(&nl, sizeof(Nova_Linha), 1, pont_dados_tabela) == 1 ) {
+						pont_tamanho_tabela = fopen(tamanho, "r");
+						while (fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela) == 1 ) {
+							if (strcmp (atr.nome, nomeAtributoEscolhido) == 0){
+								if (doubleLido <= nl.doubles[_double]){
+									printf("**************************\n");
+									printf("-- Chave Primária: %d\n", nl.inteiros[0]);
+									printf("-- %s: %lf\n", nomeAtributoEscolhido, nl.doubles[_double]);
+								}
+							}
+							_inteiro++;
+							_double++;
+						}
+						_inteiro = 0;
+						_double = 0;
+						_char = 0;
+						_string = 0;
+						fclose(pont_tamanho_tabela);
+					}
+
+				}
+				pont_dados_tabela;
+				break;
+			case 3:
+				pont_dados_tabela = fopen(dados, "r");
+				printf("--Valores iguais ao valor informado--\n");
+				if (tipoAtributoEscolhido == 4) {
+					printf("Informe um numero para comparar: ");
+					scanf("%d", &intLido);
+					printf("\n");
+					while (fread(&nl, sizeof(Nova_Linha), 1, pont_dados_tabela) == 1 ) {
+						pont_tamanho_tabela = fopen(tamanho, "r");
+						while (fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela) == 1 ) {
+							if (strcmp (atr.nome, nomeAtributoEscolhido) == 0){
+								if (intLido == nl.inteiros[_inteiro]){
+									printf("**************************\n");
+									printf("-- Chave Primária: %d\n", nl.inteiros[0]);
+									printf("-- %s: %d\n", nomeAtributoEscolhido, nl.inteiros[_inteiro]);
+								}
+							}
+							_inteiro++;
+							_double++;
+						}
+						_inteiro = 0;
+						_double = 0;
+						_char = 0;
+						_string = 0;
+						fclose(pont_tamanho_tabela);
+					}
+				}else{
+					printf("Informe um numero para comparar: ");
+					scanf("%lf", &doubleLido);
+					printf("\n");
+					while (fread(&nl, sizeof(Nova_Linha), 1, pont_dados_tabela) == 1 ) {
+						pont_tamanho_tabela = fopen(tamanho, "r");
+						while (fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela) == 1 ) {
+							if (strcmp (atr.nome, nomeAtributoEscolhido) == 0){
+								if (doubleLido == nl.doubles[_double]){
+									printf("**************************\n");
+									printf("-- Chave Primária: %d\n", nl.inteiros[0]);
+									printf("-- %s: %lf\n", nomeAtributoEscolhido, nl.doubles[_double]);
+								}
+							}
+							_inteiro++;
+							_double++;
+						}
+						_inteiro = 0;
+						_double = 0;
+						_char = 0;
+						_string = 0;
+						fclose(pont_tamanho_tabela);
+					}
+
+				}
+				pont_dados_tabela;
+				break;
+			case 4:
+				pont_dados_tabela = fopen(dados, "r");
+				printf("--Valores menores que o valor informado--\n");
+				if (tipoAtributoEscolhido == 4) {
+					printf("Informe um numero para comparar: ");
+					scanf("%d", &intLido);
+					printf("\n");
+					while (fread(&nl, sizeof(Nova_Linha), 1, pont_dados_tabela) == 1 ) {
+						pont_tamanho_tabela = fopen(tamanho, "r");
+						while (fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela) == 1 ) {
+							if (strcmp (atr.nome, nomeAtributoEscolhido) == 0){
+								if (intLido > nl.inteiros[_inteiro]){
+									printf("**************************\n");
+									printf("-- Chave Primária: %d\n", nl.inteiros[0]);
+									printf("-- %s: %d\n", nomeAtributoEscolhido, nl.inteiros[_inteiro]);
+								}
+							}
+							_inteiro++;
+							_double++;
+						}
+						_inteiro = 0;
+						_double = 0;
+						_char = 0;
+						_string = 0;
+						fclose(pont_tamanho_tabela);
+					}
+				}else{
+					printf("Informe um numero para comparar: ");
+					scanf("%lf", &doubleLido);
+					printf("\n");
+					while (fread(&nl, sizeof(Nova_Linha), 1, pont_dados_tabela) == 1 ) {
+						pont_tamanho_tabela = fopen(tamanho, "r");
+						while (fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela) == 1 ) {
+							if (strcmp (atr.nome, nomeAtributoEscolhido) == 0){
+								if (doubleLido > nl.doubles[_double]){
+									printf("**************************\n");
+									printf("-- Chave Primária: %d\n", nl.inteiros[0]);
+									printf("-- %s: %lf\n", nomeAtributoEscolhido, nl.doubles[_double]);
+								}
+							}
+							_inteiro++;
+							_double++;
+						}
+						_inteiro = 0;
+						_double = 0;
+						_char = 0;
+						_string = 0;
+						fclose(pont_tamanho_tabela);
+					}
+
+				}
+				pont_dados_tabela;
+				break;
+			case 5:
+				pont_dados_tabela = fopen(dados, "r");
+				printf("--Valores menor ou igual que o valor informado--\n");
+				if (tipoAtributoEscolhido == 4) {
+					printf("Informe um numero para comparar: ");
+					scanf("%d", &intLido);
+					printf("\n");
+					while (fread(&nl, sizeof(Nova_Linha), 1, pont_dados_tabela) == 1 ) {
+						pont_tamanho_tabela = fopen(tamanho, "r");
+						while (fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela) == 1 ) {
+							if (strcmp (atr.nome, nomeAtributoEscolhido) == 0){
+								if (intLido >= nl.inteiros[_inteiro]){
+									printf("**************************\n");
+									printf("-- Chave Primária: %d\n", nl.inteiros[0]);
+									printf("-- %s: %d\n", nomeAtributoEscolhido, nl.inteiros[_inteiro]);
+								}
+							}
+							_inteiro++;
+							_double++;
+						}
+						_inteiro = 0;
+						_double = 0;
+						_char = 0;
+						_string = 0;
+						fclose(pont_tamanho_tabela);
+					}
+				}else{
+					printf("Informe um numero para comparar: ");
+					scanf("%lf", &doubleLido);
+					printf("\n");
+					while (fread(&nl, sizeof(Nova_Linha), 1, pont_dados_tabela) == 1 ) {
+						pont_tamanho_tabela = fopen(tamanho, "r");
+						while (fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela) == 1 ) {
+							if (strcmp (atr.nome, nomeAtributoEscolhido) == 0){
+								if (doubleLido >= nl.doubles[_double]){
+									printf("**************************\n");
+									printf("-- Chave Primária: %d\n", nl.inteiros[0]);
+									printf("-- %s: %lf\n", nomeAtributoEscolhido, nl.doubles[_double]);
+								}
+							}
+							_inteiro++;
+							_double++;
+						}
+						_inteiro = 0;
+						_double = 0;
+						_char = 0;
+						_string = 0;
+						fclose(pont_tamanho_tabela);
+					}
+
+				}
+				pont_dados_tabela;
+				break;
+			default:
+				printf("Opção Inválida!\n");
+				break;
+		}
+	}else{
+		printf("ok\n");
+	}
+
+	printf("\nDeseja continuar pesquisando valores(s/n)? ");
+  	scanf(" %c", &respSN);
+  	if (respSN == 's') {
+    	pesquisarValor();
+  	}
   	return 0;
 }
