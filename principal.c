@@ -19,6 +19,7 @@
 #include "criarLinha.c"
 #include "listarDados.c"
 #include "apagarLinha.c"
+#include "pesquisarValor.c"
 
 int main(){
 	FILE *pont_tabelas;
@@ -59,12 +60,15 @@ int main(){
 				listarDados();
 				cabecalho();
 				break;
+			case 5:
+				pesquisarValor();
+				cabecalho();
+				break;
 			case 6:
 				apagarLinha();
 				cabecalho();
 				break;
 			case 7:
-				cabecalho();
 				apagarTabela();
 				cabecalho();
 				break;
