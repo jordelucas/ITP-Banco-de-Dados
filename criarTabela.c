@@ -14,6 +14,12 @@ void criarTabela() {
 		exit(0);
 	}
 
+	char * texto_str = (char*) malloc(21*sizeof(char));                //reserva memória para verificacao se o nome fornecido para a nova tabela encontra-se disponivel
+  if(texto_str == NULL){
+		printf("ERRO! Memória não alocada.");
+		exit(0);
+	}
+
   char respSN;                                                //variável para respostas Sim ou Não do usuário
 
 	printf("----CRIAR TABELA----\n\n");
@@ -21,6 +27,23 @@ void criarTabela() {
 	fflush(stdin);
 	printf("Nome da tabela: ");
 	scanf("%s", nomeTabela);
+
+	pont_tabelas = fopen("tabelas//listaTabelas.txt", "r");
+	if (pont_tabelas == NULL){
+		printf("ERRO! O arquivo de nomes não foi aberto.\n");
+		exit(0);
+	}else{
+		if(fgets(texto_str, 21, pont_tabelas) == NULL){           //Não havendo nada na primeira linha do arquivo, significa dizer que não há tabelas cadastradas
+			printf("ok\n");
+		}else{
+			do{
+				if (texto_str == nomeTabela) {
+					printf("\nO nome solicitado já esta cadastrado em outra tabela!\n");
+				}
+			}while (fgets(texto_str, 21, pont_tabelas) != NULL);
+		}
+	}
+	fclose(pont_tabelas);
 
 	//Adiciona nova tabela a lista
 	pont_tabelas = fopen("tabelas//listaTabelas.txt", "a");

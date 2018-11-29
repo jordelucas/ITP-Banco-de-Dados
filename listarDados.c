@@ -203,7 +203,7 @@ int listarDados(){
   free(tabelaEscolhida);
   tabelaEscolhida = NULL;
 
-	printf("\nDeseja continuar listando tabelas(s/n)? ");
+	printf("\nDeseja continuar listando dados das tabelas(s/n)? ");
   scanf(" %c", &respSN);
   if (respSN == 's') {
     listarDados();

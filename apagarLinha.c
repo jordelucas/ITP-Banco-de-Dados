@@ -2,7 +2,7 @@ int apagarLinha(){
   cabecalho();
   /*ponteiros para o tipo arquivo*/
   FILE *pont_tabelas;
-  FILE * pont_temporario;
+  FILE *pont_temporario;
   FILE *pont_dados_tabela;
   FILE *pont_tamanho_tabela;
 
@@ -231,6 +231,9 @@ int apagarLinha(){
     }
   }
   fclose(pont_dados_tabela);
+  free(dados);
+  free(tabelaEscolhida);
+  tabelaEscolhida = NULL;
 
   printf("Deseja prosseguir(s/n)? ");
   scanf(" %c", &respSN);
@@ -258,6 +261,7 @@ int apagarLinha(){
     fclose(pont_temporario);
     remove(dados);
     rename("dados//temporario.txt", dados);
+    free(dados);
   }
   return 0;
 }
