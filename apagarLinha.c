@@ -231,7 +231,6 @@ int apagarLinha(){
     }
   }
   fclose(pont_dados_tabela);
-  free(dados);
   free(tabelaEscolhida);
   tabelaEscolhida = NULL;
 
@@ -242,7 +241,7 @@ int apagarLinha(){
     pont_temporario = fopen("dados//temporario.txt", "w");
     pont_dados_tabela = fopen(dados, "r");
     if (pont_dados_tabela == NULL){
-  		printf("ERRO! O arquivo de nomes não foi aberto.\n");
+  		printf("ERRO! O arquivo de dados não foi aberto.\n");
       exit(0);
   	}else{
     while (fread(&nl, sizeof(Nova_Linha), 1, pont_dados_tabela) == 1 ) {
