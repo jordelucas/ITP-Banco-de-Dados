@@ -22,6 +22,13 @@ int pesquisarValor(){
 		exit(0);
 	}
 
+	char * atributoEscolhido = (char*)malloc(21*sizeof(char));
+	if(atributoEscolhido == NULL){
+		printf("ERRO! Memória não alocada.");
+		exit(0);
+	}
+
+
 	char respSN;                                                    //variável para respostas Sim ou Não do usuário
 
 	/*Variáveis auxiliades para leitura de arquivos*/
@@ -163,7 +170,7 @@ int pesquisarValor(){
 		pont_tamanho_tabela = fopen(tamanho, "r");
 		if (pont_tamanho_tabela == NULL){
 			printf("ERRO! O arquivo de tamanhos não foi aberto.\n");
-    		exit(0);
+			exit(0);
 		}else{                                                            //Havendo linhas, são listados os nomes das tabelas com um indice ao lado
           	ordem = 0;
   			while (fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela) == 1 ) {             //Leitura enquanto houver elementos da estrutura tamanho de atributo da respectiva tabela
@@ -184,8 +191,30 @@ int pesquisarValor(){
         	}
       	}
     } while (linha_escolhida < 1 || linha_escolhida > ordem);
+	
+  /*Localização dos arquivos da tabela solicidata*/
+	pont_tamanho_tabela = fopen(tamanho, "r");
+	if (pont_tamanho_tabela == NULL){
+		printf("ERRO! O arquivo de tamanhos não foi aberto.\n");
+		exit(0);
+	}else{
+		linha_atual = 1;
+		while (fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela) == 1 ) {
+			if (linha_atual == linha_escolhida) {
+        		linha_atual++;
+        		strcpy(atributoEscolhido, atr.nome);
+        		continue;
+			}
+      		linha_atual++;
+    	}
+  	}
+  	fclose(pont_tamanho_tabela);
 
+	cabecalho();
+	printf("---PESQUISAR VALOR--\n\n");
+	printf("Pesquisando valores de '%s' na tabela '%s'!\n", atributoEscolhido, tabelaEscolhida);
 
+	
 
   	return 0;
 }
