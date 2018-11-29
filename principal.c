@@ -21,6 +21,12 @@
 #include "apagarLinha.c"
 
 int main(){
+	FILE *pont_tabelas;
+	pont_tabelas = fopen("tabelas//listaTabelas.txt", "a");
+	if (pont_tabelas == NULL){
+		printf("ERRO! O arquivo de nomes não foi aberto.\n");
+		exit(0);
+	}
 	int opcao;
 	cabecalho();
 	do{

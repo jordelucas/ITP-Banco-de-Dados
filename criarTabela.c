@@ -1,4 +1,4 @@
-void criarTabela() {
+int criarTabela() {
 	cabecalho();
 	/*ponteiros para o tipo arquivo*/
 	FILE *pont_dados_tabela;
@@ -15,12 +15,12 @@ void criarTabela() {
 	}
 
 	char * texto_str = (char*) malloc(21*sizeof(char));                //reserva memória para verificacao se o nome fornecido para a nova tabela encontra-se disponivel
-  if(texto_str == NULL){
+  	if(texto_str == NULL){
 		printf("ERRO! Memória não alocada.");
 		exit(0);
 	}
 
-  char respSN;                                                //variável para respostas Sim ou Não do usuário
+  	char respSN;                                                //variável para respostas Sim ou Não do usuário
 
 	printf("----CRIAR TABELA----\n\n");
 
@@ -33,17 +33,30 @@ void criarTabela() {
 		printf("ERRO! O arquivo de nomes não foi aberto.\n");
 		exit(0);
 	}else{
-		if(fgets(texto_str, 21, pont_tabelas) == NULL){           //Não havendo nada na primeira linha do arquivo, significa dizer que não há tabelas cadastradas
-			printf("ok\n");
-		}else{
-			do{
-				if (texto_str == nomeTabela) {
-					printf("\nO nome solicitado já esta cadastrado em outra tabela!\n");
+		while (fgets(texto_str, 21, pont_tabelas) != NULL){           //Não havendo nada na primeira linha do arquivo, significa dizer que não há tabelas cadastradas
+			texto_str[strcspn(texto_str, "\n")] = 0;
+			if (strcmp (texto_str, nomeTabela) == 0){
+				printf("\nO nome fornecido já foi cadastrado em outra tabela!\n");
+				fflush(stdin);
+				printf("Deseja inserir outro nome(s/n)? ");
+				scanf(" %c", &respSN);
+				if (respSN == 's') {
+					fclose(pont_tabelas);
+					free(texto_str);
+					texto_str = NULL;
+					free(nomeTabela);
+					nomeTabela = NULL;
+					criarTabela();
+					return -1;
+				}else{
+					return -1;
 				}
-			}while (fgets(texto_str, 21, pont_tabelas) != NULL);
+			}
 		}
 	}
 	fclose(pont_tabelas);
+	free(texto_str);
+	texto_str = NULL;
 
 	//Adiciona nova tabela a lista
 	pont_tabelas = fopen("tabelas//listaTabelas.txt", "a");
@@ -88,4 +101,5 @@ void criarTabela() {
 	if (respSN == 's') {
 		criarTabela();
 	}*/
+	return 0;
 }
