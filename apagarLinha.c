@@ -257,7 +257,7 @@ int apagarLinha(){
     fclose(pont_dados_tabela);
     fclose(pont_temporario);
     remove(dados);
-    rename("tabelas//temporario.txt", dados);
+    rename("dados//temporario.txt", dados);
   }
   return 0;
 }
