@@ -2,13 +2,13 @@ int listarTabelas(){
   cabecalho();
   FILE * pont_tabelas;
 
-  char * texto_str = (char*) malloc(21*sizeof(char));                //reserva memória para identificação da tabela localizada no arquivo
+  char * texto_str = (char*) malloc(21*sizeof(char));               //reserva memória para identificação da tabela localizada no arquivo
   if(texto_str == NULL){
 		printf("ERRO! Memória não alocada.");
 		exit(0);
 	}
 
-  char respSN;                                                //variável para respostas Sim ou Não do usuário
+  char respSN;                                                      //variável para respostas Sim ou Não do usuário
 
 	printf("---LISTAR TABELAS---\n\n");
 
@@ -17,7 +17,7 @@ int listarTabelas(){
 		printf("ERRO! O arquivo de nomes não foi aberto!\n");
     exit(0);
 	}else{
-    if(fgets(texto_str, 21, pont_tabelas) == NULL){           //Não havendo nada na primeira linha do arquivo, significa dizer que não há tabelas cadastradas
+    if(fgets(texto_str, 21, pont_tabelas) == NULL){                 //Não havendo nada na primeira linha do arquivo, significa dizer que não há tabelas cadastradas
       printf("Não há tabelas cadastradas!\n");
       fflush(stdin);
       printf("Deseja cadastrar uma tabela(s/n)? ");
@@ -33,7 +33,7 @@ int listarTabelas(){
         texto_str = NULL;
         return -1;
       }
-    }else{                                                    //Havendo linhas, são listados os nomes das tabelas
+    }else{                                                          //Havendo linhas, são listados os nomes das tabelas
       do{
         printf("-> %s", texto_str);
       }while (fgets(texto_str, 21, pont_tabelas) != NULL);
