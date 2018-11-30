@@ -45,42 +45,42 @@ int main(){
 		scanf("%d", &opcao);
 		switch(opcao){
 			case 1:
-				criarTabela();
-				cabecalho();
-				break;
+			criarTabela();
+			cabecalho();
+			break;
 			case 2:
-				listarTabelas();
-				cabecalho();
-				break;
+			listarTabelas();
+			cabecalho();
+			break;
 			case 3:
-				criarLinha();
-				cabecalho();
-				break;
+			criarLinha();
+			cabecalho();
+			break;
 			case 4:
-				listarDados();
-				cabecalho();
-				break;
+			listarDados();
+			cabecalho();
+			break;
 			case 5:
-				pesquisarValor();
-				cabecalho();
-				break;
+			pesquisarValor();
+			cabecalho();
+			break;
 			case 6:
-				apagarLinha();
-				cabecalho();
-				break;
+			apagarLinha();
+			cabecalho();
+			break;
 			case 7:
-				apagarTabela();
-				cabecalho();
-				break;
+			apagarTabela();
+			cabecalho();
+			break;
 			case 0:
-				cabecalho();
-				printf("Saindo...\n");
-				exit(0);
-				break;
+			cabecalho();
+			printf("Saindo...\n");
+			exit(0);
+			break;
 			default:
-				cabecalho();
-				printf("Opção Inválida!\n");
-				break;
+			cabecalho();
+			printf("Opção Inválida!\n");
+			break;
 		}
 	}while(opcao != 0);
 	return 0;

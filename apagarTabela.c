@@ -10,9 +10,9 @@ int apagarTabela(){
 
   char * nomeTabela = malloc(21*sizeof(char));                                  //reserva memória para identificação da tabela localizada no arquivo
   if(nomeTabela == NULL){
-		printf("ERRO! Memória não alocada.");
-		exit(0);
-	}
+    printf("ERRO! Memória não alocada.");
+    exit(0);
+  }
 
   char respSN;                                                                  //variável para respostas Sim ou Não do usuário
 
@@ -71,9 +71,9 @@ int apagarTabela(){
   pont_temporario = fopen("tabelas//temporario.txt", "w");
   pont_tabelas = fopen("tabelas//listaTabelas.txt", "r");
   if (pont_tabelas == NULL || pont_temporario == NULL){
-		printf("ERRO! O arquivo de nomes não foi aberto.\n");
+    printf("ERRO! O arquivo de nomes não foi aberto.\n");
     exit(0);
-	}else{
+  }else{
     while(fgets(nomeTabela, 20, pont_tabelas) != NULL){
       if (linha_atual == linha_escolhida) {
         nomeTabela[strcspn(nomeTabela, "\n")] = 0;                              //retira o '\n'
@@ -100,7 +100,7 @@ int apagarTabela(){
   rename("tabelas//temporario.txt", "tabelas//listaTabelas.txt");
 
   printf("\n*A tabela foi excluída do banco!*\n");
- fflush(stdin);
+  fflush(stdin);
   printf("Deseja continuar apagando tabelas(s/n)? ");
   scanf(" %c", &respSN);
   if (respSN == 's') {

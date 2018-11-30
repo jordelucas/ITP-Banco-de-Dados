@@ -3,7 +3,7 @@ int criarTabela() {
 	/*ponteiros para o tipo arquivo*/
 	FILE *pont_dados_tabela;
 	FILE *pont_tamanho_tabela;
- 	FILE *pont_tabelas;
+	FILE *pont_tabelas;
   /*ponteiros para identificação de onde e como salvar os arquivos da tabela criada*/
 	char * nome_tamanho_tabela;
 	char * nome_dados_tabela;
@@ -15,24 +15,24 @@ int criarTabela() {
 	}
 
 	char * texto_str = (char*) malloc(21*sizeof(char));                //reserva memória para verificacao se o nome fornecido para a nova tabela encontra-se disponivel
-  	if(texto_str == NULL){
+	if(texto_str == NULL){
 		printf("ERRO! Memória não alocada.");
 		exit(0);
 	}
 
   	char respSN;                                                //variável para respostas Sim ou Não do usuário
 
-	printf("----CRIAR TABELA----\n\n");
+  	printf("----CRIAR TABELA----\n\n");
 
-	fflush(stdin);
-	printf("Nome da tabela: ");
-	scanf("%s", nomeTabela);
+  	fflush(stdin);
+  	printf("Nome da tabela: ");
+  	scanf("%s", nomeTabela);
 
-	pont_tabelas = fopen("tabelas//listaTabelas.txt", "r");
-	if (pont_tabelas == NULL){
-		printf("ERRO! O arquivo de nomes não foi aberto.\n");
-		exit(0);
-	}else{
+  	pont_tabelas = fopen("tabelas//listaTabelas.txt", "r");
+  	if (pont_tabelas == NULL){
+  		printf("ERRO! O arquivo de nomes não foi aberto.\n");
+  		exit(0);
+  	}else{
 		while (fgets(texto_str, 21, pont_tabelas) != NULL){           //Não havendo nada na primeira linha do arquivo, significa dizer que não há tabelas cadastradas
 			texto_str[strcspn(texto_str, "\n")] = 0;
 			if (strcmp (texto_str, nomeTabela) == 0){
@@ -72,7 +72,7 @@ int criarTabela() {
 	nome_dados_tabela = diretorioDados(nomeTabela);
 	pont_dados_tabela = fopen(nome_dados_tabela, "a");
 	if (pont_dados_tabela == NULL){
-  	printf("ERRO! O arquivo de dados não foi aberto.\n");
+		printf("ERRO! O arquivo de dados não foi aberto.\n");
 		exit(0);
 	}
 	fclose(pont_dados_tabela);

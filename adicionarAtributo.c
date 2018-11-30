@@ -38,23 +38,23 @@ void adicionarAtributo (FILE * tabela, char * nomeTabela){
 
 			switch(tipo){
 				case 1:
-					atributo.tamanho = CHAR;
-					break;
+				atributo.tamanho = CHAR;
+				break;
 				case 2:
-					atributo.tamanho = INT;
-					break;
+				atributo.tamanho = INT;
+				break;
 				case 3:
-					atributo.tamanho = FLOAT;
-					break;
+				atributo.tamanho = FLOAT;
+				break;
 				case 4:
-					atributo.tamanho = DOUBLE;
-					break;
+				atributo.tamanho = DOUBLE;
+				break;
 				case 5:
-					atributo.tamanho = STRING;
-					break;
+				atributo.tamanho = STRING;
+				break;
 				default:
-					printf("\nOpção Inválida!\n");
-					break;
+				printf("\nOpção Inválida!\n");
+				break;
 			}
 		}
 		if(fwrite(&atributo, sizeof(Tamanho_Atributo), 1, tabela) != 1){
