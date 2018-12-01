@@ -1,4 +1,4 @@
-/*Estrutura para identificação dos atributos e tipos de dados*/
+/*--Estrutura para identificação dos atributos e tipos de dados--*/
 typedef struct tamanhoAtr Tamanho_Atributo;
 struct tamanhoAtr{
 	char nome[20];
@@ -7,7 +7,7 @@ struct tamanhoAtr{
 
 void adicionarAtributo (FILE * tabela, char * nomeTabela){
 	Tamanho_Atributo atributo;
-	char continuar = 's';
+	char respSN = 's';                          //variável para respostas Sim ou Não do usuário
 	int qtdAtr = 1;															//auxiliar para identificar o primeiro atributo da tabela (chave primaria)
 	int tipo;																		//auxiliar para identificar tipo de dados
 
@@ -18,7 +18,7 @@ void adicionarAtributo (FILE * tabela, char * nomeTabela){
 			fflush(stdin);
 			scanf("%s", atributo.nome);
 			atributo.tamanho = INT;
-		}else{
+		}else{																		//Serão solicitados os nome dos demais atributos
 			cabecalho();
 			printf("----CRIAR TABELA----\n\n");
 			printf("Adicionando atributo a tabela '%s'\n", nomeTabela);
@@ -64,6 +64,6 @@ void adicionarAtributo (FILE * tabela, char * nomeTabela){
 		qtdAtr++;
 		fflush(stdin);
 		printf("Deseja continuar adicionando atributos(s/n)? ");
-		scanf(" %c", &continuar);
-	}while(continuar != 'n');
+		scanf(" %c", &respSN);
+	}while(respSN != 'n');										//O usuário poderá continuar adicionando atributos enquanto sua resposta não for igual a 'n'
 }
