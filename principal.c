@@ -22,13 +22,16 @@
 #include "pesquisarValor.c"
 
 int main(){
+	/*--Abertura do arquivo que armazenará os nomes das tabelas.
+			Essa abertura de arquivo é importante caso seja a primeira
+			vez que o programa entrou em execução, pois o criará--*/
 	FILE *pont_tabelas;
 	pont_tabelas = fopen("tabelas//listaTabelas.txt", "a");
 	if (pont_tabelas == NULL){
 		printf("ERRO! O arquivo de nomes não foi aberto.\n");
 		exit(0);
 	}
-	int opcao;
+	int opcao;																																		//Variável responsável por guardar a escolha do usuário entre as opções listadas
 	cabecalho();
 	do{
 		printf("Escolha uma opcão:\n\n");
@@ -42,7 +45,7 @@ int main(){
 		printf("0- Sair\n");
 		printf("Opção: ");
 		fflush(stdin);
-		scanf("%d", &opcao);
+		scanf("%d", &opcao);																												//Ao identificar qual opção foi escolhida, a função correspondente será iniciada
 		switch(opcao){
 			case 1:
 			criarTabela();
@@ -74,7 +77,7 @@ int main(){
 			break;
 			case 0:
 			cabecalho();
-			printf("Saindo...\n");
+			printf("O sistema foi encerrado!\n");
 			exit(0);
 			break;
 			default:
@@ -82,6 +85,6 @@ int main(){
 			printf("Opção Inválida!\n");
 			break;
 		}
-	}while(opcao != 0);
+	}while(opcao != 0);																														//O sistema só será encerrado quando for fornecido o número correspondente a opção de saída
 	return 0;
 }
