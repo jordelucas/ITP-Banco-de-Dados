@@ -1,17 +1,19 @@
 int listarTabelas(){
   cabecalho();
+  /*--Ponteiro para o tipo arquivo--*/
   FILE * pont_tabelas;
 
-  char * texto_str = (char*) malloc(21*sizeof(char));               //reserva memória para identificação da tabela localizada no arquivo
+  char * texto_str = (char*) malloc(21*sizeof(char));               //Reserva memória para identificação dos nomes de tabelas contidos no arquivo
   if(texto_str == NULL){
     printf("ERRO! Memória não alocada.");
     exit(0);
   }
 
-  char respSN;                                                      //variável para respostas Sim ou Não do usuário
+  char respSN;                                                      //Variável para respostas Sim ou Não do usuário
 
   printf("---LISTAR TABELAS---\n\n");
 
+  /*--Lista das tabelas cadastradas--*/
   pont_tabelas = fopen("tabelas//listaTabelas.txt", "r");
   if (pont_tabelas == NULL){
     printf("ERRO! O arquivo de nomes não foi aberto!\n");
@@ -38,17 +40,21 @@ int listarTabelas(){
         printf("-> %s", texto_str);
       }while (fgets(texto_str, 21, pont_tabelas) != NULL);
       fflush(stdin);
-      printf("\nDeseja editar uma tabela(s/n)?");
+      printf("\nDeseja retornar ao menu(s/n)?");
       scanf(" %c", &respSN);
       if (respSN == 's') {
-        printf("OK\n");
+        fclose(pont_tabelas);
+        free(texto_str);
+        texto_str = NULL;
+        return -1;
       }else{
-        printf("Blz\n");
+        fclose(pont_tabelas);
+        free(texto_str);
+        texto_str = NULL;
+        listarTabelas();
+        return -1;
       }
     }
   }
-  fclose(pont_tabelas);
-  free(texto_str);
-  texto_str = NULL;
   return 0;
 }
