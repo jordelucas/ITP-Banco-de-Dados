@@ -1,34 +1,34 @@
 int listarDados(){
 	cabecalho();
-  /*ponteiros para o tipo arquivo*/
+  /*--Ponteiros para o tipo arquivo--*/
   FILE *pont_tabelas;
   FILE *pont_dados_tabela;
   FILE *pont_tamanho_tabela;
 
-  /*ponteiros para identificação de onde se encontram os arquivos da tabela solicitada*/
+  /*--Ponteiros para identificação de onde se encontram os arquivos da tabela solicitada--*/
   char * dados;
   char * tamanho;
 
-  char * nomeTabela = (char*)malloc(21*sizeof(char));                           //reserva memória para identificação da tabela localizada no arquivo
-  if(nomeTabela == NULL){
+  char * nomeTabela = (char*)malloc(21*sizeof(char));                           //Reserva memória para identificação dos nomes de tabelas contidos no arquivo arquivo
+	if(nomeTabela == NULL){
     printf("ERRO! Memória não alocada.");
     exit(0);
   }
 
-  char * tabelaEscolhida = (char*)malloc(21*sizeof(char));                      //reserva memória para identificação da tabela cujo os dados serão listados
-  if(tabelaEscolhida == NULL){
+  char * tabelaEscolhida = (char*)malloc(21*sizeof(char));                      //Reserva memória para identificação da tabela escolhida para listar dados
+	if(tabelaEscolhida == NULL){
     printf("ERRO! Memória não alocada.");
     exit(0);
   }
 
-  char respSN;                                                                  //variável para respostas Sim ou Não do usuário
+  char respSN;                                                                  //Variável para respostas Sim ou Não do usuário
 
-  /*Variáveis auxiliades para leitura de arquivos*/
+  /*--Variáveis auxiliades para leitura de arquivos--*/
   int linha_escolhida = 0;
   int ordem;
   int linha_atual = 1;
 
-  /*Contadores de tipos de dados dos atributos da tabela*/
+  /*--Contadores de tipos de dados dos atributos da tabela--*/
   int _inteiro = 0;
   int _double = 0;
   int _char = 0;
@@ -38,7 +38,7 @@ int listarDados(){
 
   printf("----LISTAR DADOS----\n\n");
 
-  /*Lista das tabelas cadastradas*/
+  /*--Lista das tabelas cadastradas--*/
   do{
     pont_tabelas = fopen("tabelas//listaTabelas.txt", "r");
     if (pont_tabelas == NULL){
@@ -66,7 +66,7 @@ int listarDados(){
           tabelaEscolhida = NULL;
           return -1;
         }
-      }else{//Havendo linhas, são listados os nomes das tabelas com um indice ao lado
+      }else{																																		//Havendo linhas, são listados os nomes das tabelas com um indice ao lado
         ordem = 0;
         do {
           printf("%d. %s", ++ordem, nomeTabela);
@@ -84,7 +84,7 @@ int listarDados(){
     }
   } while (linha_escolhida < 1 || linha_escolhida > ordem);
 
-  /*Localização dos arquivos da tabela solicidata*/
+  /*--Localização dos arquivos da tabela solicidata--*/
   pont_tabelas = fopen("tabelas//listaTabelas.txt", "r");
   if (pont_tabelas == NULL){
     printf("ERRO! O arquivo de nomes não foi aberto.\n");
@@ -106,7 +106,7 @@ int listarDados(){
   free(nomeTabela);
   nomeTabela = NULL;
 
-  /*Contagem da quantidade de cada tipo de dados da tabela*/
+  /*--Contagem da quantidade de cada tipo de dados da tabela--*/
   pont_tamanho_tabela = fopen(tamanho, "r");
   if (pont_tamanho_tabela == NULL){
     printf("ERRO! O arquivo de tamanhos não foi aberto!\n");
@@ -134,7 +134,7 @@ int listarDados(){
   }
   fclose(pont_tamanho_tabela);
 
-  /*Define estrutura nova linha, que possui arrays que guardam os atributos da linha a partir dos tipos de dados*/
+  /*--Define estrutura nova linha, que possui arrays que guardam os atributos da linha a partir dos tipos de dados--*/
   typedef struct linha Nova_Linha;
   struct linha{
     int inteiros[_inteiro];
@@ -144,7 +144,7 @@ int listarDados(){
   };
   Nova_Linha nl;
 
-  /*Contadores dos tipos de dados*/
+  /*--Contadores dos tipos de dados--*/
   _inteiro = 0;
   _double = 0;
   _char = 0;
@@ -152,7 +152,7 @@ int listarDados(){
 
   linha_atual = 0;
 
-  /*Exibe os dados da tabela solicitada*/
+  /*--Exibe os dados da tabela solicitada--*/
   pont_dados_tabela = fopen(dados, "r");
   cabecalho();
   printf("----LISTAR DADOS----\n\n");
