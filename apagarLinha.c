@@ -268,5 +268,14 @@ int apagarLinha(){
     rename("dados//temporario.txt", dados);
     free(dados);
   }
+
+  printf("\n*Os dados foram salvos no banco!*\n");
+  fflush(stdin);
+  printf("Deseja continuar apagando linhas(s/n)? ");
+  scanf(" %c", &respSN);
+  if (respSN == 's') {
+    apagarLinha();
+    return -1;
+  }
   return 0;
 }

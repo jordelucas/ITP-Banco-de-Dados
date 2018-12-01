@@ -113,4 +113,4 @@ int apagarTabela(){
     apagarTabela();
   }
   return 0;
-};
+}
