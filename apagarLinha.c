@@ -16,7 +16,7 @@ int apagarLinha(){
     exit(0);
   }
 
-  char * tabelaEscolhida = (char*)malloc(21*sizeof(char));               //Reserva memória para identificação da tabela escolhida para receber uma linha
+  char * tabelaEscolhida = (char*)malloc(21*sizeof(char));               //Reserva memória para identificação da tabela escolhida para apagar linha
   if(tabelaEscolhida == NULL){
     printf("ERRO! Memória não alocada.");
     exit(0);
