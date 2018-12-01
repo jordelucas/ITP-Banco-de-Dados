@@ -9,7 +9,7 @@ int criarTabela() {
 	char * nome_tamanho_tabela;
 	char * nome_dados_tabela;
 
-	char * nomeTabela = (char*)malloc(21*sizeof(char));									//Reserva memória para identificação da tabela escolhida para receber uma linha
+	char * nomeTabela = (char*)malloc(21*sizeof(char));									//Reserva memória para definição do nome da tabela
 	if(nomeTabela == NULL){
 		printf("ERRO! Memória não alocada.");
 		exit(0);

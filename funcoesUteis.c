@@ -1,3 +1,4 @@
+/*--Função para exibição padrão no início das 'telas'--*/
 void cabecalho(){
 	system("clear");
 	printf("--------------------\n");
@@ -6,6 +7,10 @@ void cabecalho(){
 	printf("--------------------\n\n");
 }
 
+/*--Função responsável por fornecer o diretório
+		dos dados de uma tabela, seja na criação de
+		uma nova tabela, seja na inclusão de dados,
+		entre outros--*/
 char* diretorioDados(char * nomeTabela){
   char * nome_dados_tabela = (char *)calloc(1, strlen(nomeTabela)+17);
   strncat(nome_dados_tabela, "dados//", 7);
@@ -14,6 +19,10 @@ char* diretorioDados(char * nomeTabela){
   return nome_dados_tabela;
 }
 
+/*--Função responsável por fornecer o diretório
+		dos tamanhos dos atributos de uma tabela,
+		seja na criação de uma nova tabela, seja na
+		inclusão de dados, entre outros--*/
 char* diretorioTamanhos(char * nomeTabela){
 	char * nome_tamanho_tabela = (char *)calloc(1, strlen(nomeTabela)+22);
   strncat(nome_tamanho_tabela, "tamanhos//", 10);
