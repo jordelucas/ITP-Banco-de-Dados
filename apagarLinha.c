@@ -1,35 +1,35 @@
 int apagarLinha(){
   cabecalho();
-  /*ponteiros para o tipo arquivo*/
+  /*--Ponteiros para o tipo arquivo--*/
   FILE *pont_tabelas;
   FILE *pont_temporario;
   FILE *pont_dados_tabela;
   FILE *pont_tamanho_tabela;
 
-  /*ponteiros para identificação de onde se encontram os arquivos da tabela solicitada*/
+  /*--Ponteiros para identificação de onde se encontram os arquivos da tabela solicitada--*/
   char * dados;
   char * tamanho;
 
-  char * nomeTabela = (char*)malloc(21*sizeof(char));                    //reserva memória para identificação da tabela localizada no arquivo
+  char * nomeTabela = (char*)malloc(21*sizeof(char));                    //Reserva memória para identificação dos nomes de tabelas contidos no arquivo arquivo
   if(nomeTabela == NULL){
     printf("ERRO! Memória não alocada.");
     exit(0);
   }
 
-  char * tabelaEscolhida = (char*)malloc(21*sizeof(char));               //reserva memória para identificação da tabela que receberá uma linha
+  char * tabelaEscolhida = (char*)malloc(21*sizeof(char));               //Reserva memória para identificação da tabela escolhida para receber uma linha
   if(tabelaEscolhida == NULL){
     printf("ERRO! Memória não alocada.");
     exit(0);
   }
 
-  char respSN;                                                    //variável para respostas Sim ou Não do usuário
+  char respSN;                                                            //variável para respostas Sim ou Não do usuário
 
-  /*Variáveis auxiliades para leitura de arquivos*/
+  /*--Variáveis auxiliares para localização ao fazer a leitura ou escrita de arquivos--*/
   int linha_escolhida = 0;
   int ordem;
   int linha_atual = 1;
 
-  /*Contadores de tipos de dados dos atributos da tabela*/
+  /*--Contadores de tipos de dados dos atributos da tabela--*/
   int _inteiro = 0;
   int _double = 0;
   int _char = 0;
@@ -39,7 +39,7 @@ int apagarLinha(){
 
   printf("----APAGAR LINHA----\n\n");
 
-  /*Lista das tabelas cadastradas*/
+  /*--Lista das tabelas cadastradas--*/
   do{
     pont_tabelas = fopen("tabelas//listaTabelas.txt", "r");
     if (pont_tabelas == NULL){
@@ -75,7 +75,7 @@ int apagarLinha(){
         fflush(stdin);
         printf("\nEm qual tabela você deseja apagar linha? ");
         scanf("%d", &linha_escolhida);
-        if (linha_escolhida < 1 || linha_escolhida > ordem) {            //Controle de que o indice solicitado seja um dos exibidos na tela
+        if (linha_escolhida < 1 || linha_escolhida > ordem) {            //Controle de que o indice solicitado seja um dos exibidos
           cabecalho();
           printf("----APAGAR LINHA----\n\n");
           printf("*Opção Inválida!\n");
@@ -87,7 +87,7 @@ int apagarLinha(){
     }
   } while (linha_escolhida < 1 || linha_escolhida > ordem);
 
-  /*Localização dos arquivos da tabela solicidata*/
+  /*--Localização dos arquivos da tabela solicidata--*/
   pont_tabelas = fopen("tabelas//listaTabelas.txt", "r");
   if (pont_tabelas == NULL){
     printf("ERRO! O arquivo de nomes não foi aberto.\n");
@@ -109,7 +109,7 @@ int apagarLinha(){
   free(nomeTabela);
   nomeTabela = NULL;
 
-  /*Contagem da quantidade de cada tipo de dados da tabela*/
+  /*--Contagem da quantidade de cada tipo de dados da tabela--*/
   pont_tamanho_tabela = fopen(tamanho, "r");
   if (pont_tamanho_tabela == NULL){
     printf("ERRO! O arquivo de tamanhos não foi aberto.\n");
@@ -137,7 +137,7 @@ int apagarLinha(){
   }
 
   fclose(pont_tamanho_tabela);
-  /*Define estrutura nova linha, que possui arrays que guardam os atributos da linha a partir dos tipos de dados*/
+  /*--Define estrutura nova linha, que possui arrays que guardam os atributos da linha a partir dos tipos de dados--*/
   typedef struct linha Nova_Linha;
   struct linha{
     int inteiros[_inteiro];
@@ -147,7 +147,7 @@ int apagarLinha(){
   };
   Nova_Linha nl;
 
-  /*Contadores dos tipos de dados*/
+  /*--Contadores dos tipos de dados--*/
   _inteiro = 0;
   _double = 0;
   _char = 0;
@@ -158,7 +158,7 @@ int apagarLinha(){
   printf("Apagando linha da tabela '%s'!\n", tabelaEscolhida);
   printf("Segue a lista de chave primária de cada linha:\n\n");
 
-  /*Lista das chaves primarias*/
+  /*--Lista das chaves primarias--*/
   do{
     pont_dados_tabela = fopen(dados, "r");
     if (pont_dados_tabela == NULL){
@@ -191,6 +191,7 @@ int apagarLinha(){
   printf("----APAGAR LINHA----\n\n");
   printf("Apagando linha da tabela '%s'!\n", tabelaEscolhida);
 
+  /*--Exibe todos os datos correspondentes a chave indicada--*/
   printf("A chave escolhida corresponde aos dados:\n\n");
 
   if (pont_dados_tabela == NULL){
@@ -234,6 +235,9 @@ int apagarLinha(){
   free(tabelaEscolhida);
   tabelaEscolhida = NULL;
 
+  /*--Após verificação sobre prosseguir com o processo ou não,
+      será criado um arquivo temporário que guardará todos os
+      registros exceto o que o usuário deseja apagar--*/
   printf("Deseja prosseguir(s/n)? ");
   scanf(" %c", &respSN);
   if (respSN == 's') {
@@ -258,6 +262,8 @@ int apagarLinha(){
     }
     fclose(pont_dados_tabela);
     fclose(pont_temporario);
+    /*--Será excluído todo o arquivo que ainda contém a linha
+        indesejada. Já o arquivo temporário será renomeado--*/
     remove(dados);
     rename("dados//temporario.txt", dados);
     free(dados);
