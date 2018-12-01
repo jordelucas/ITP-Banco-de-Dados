@@ -1,21 +1,21 @@
 int criarLinha(){
   cabecalho();
-  /*ponteiros para o tipo arquivo*/
+  /*--Ponteiros para o tipo arquivo--*/
   FILE *pont_tabelas;
   FILE *pont_dados_tabela;
   FILE *pont_tamanho_tabela;
 
-  /*ponteiros para identificação de onde se encontram os arquivos da tabela solicitada*/
+  /*--Ponteiros para identificação de onde se encontram os arquivos da tabela solicitada--*/
   char * dados;
   char * tamanho;
 
-  char * nomeTabela = (char*)malloc(21*sizeof(char));                    //reserva memória para identificação da tabela localizada no arquivo
+  char * nomeTabela = (char*)malloc(21*sizeof(char));                    //Reserva memória para identificação dos nomes de tabelas contidos no arquivo arquivo
   if(nomeTabela == NULL){
     printf("ERRO! Memória não alocada.");
     exit(0);
   }
 
-  char * tabelaEscolhida = (char*)malloc(21*sizeof(char));               //reserva memória para identificação da tabela que receberá uma linha
+  char * tabelaEscolhida = (char*)malloc(21*sizeof(char));               //Reserva memória para identificação da tabela escolhida para receber uma linha
   if(tabelaEscolhida == NULL){
     printf("ERRO! Memória não alocada.");
     exit(0);
@@ -23,12 +23,12 @@ int criarLinha(){
 
   char respSN;                                                    //variável para respostas Sim ou Não do usuário
 
-  /*Variáveis auxiliades para leitura de arquivos*/
+  /*--Variáveis auxiliades para leitura de arquivos--*/
   int linha_escolhida = 0;
   int ordem;
   int linha_atual = 1;
 
-  /*Contadores de tipos de dados dos atributos da tabela*/
+  /*--Contadores de tipos de dados dos atributos da tabela--*/
   int _inteiro = 0;
   int _double = 0;
   int _char = 0;
@@ -38,7 +38,7 @@ int criarLinha(){
 
   printf("---ADICIONAR LINHA--\n\n");
 
-  /*Lista das tabelas cadastradas*/
+  /*--Lista das tabelas cadastradas--*/
   do{
     pont_tabelas = fopen("tabelas//listaTabelas.txt", "r");
     if (pont_tabelas == NULL){
@@ -86,7 +86,7 @@ int criarLinha(){
     }
   } while (linha_escolhida < 1 || linha_escolhida > ordem);
 
-  /*Localização dos arquivos da tabela solicidata*/
+  /*--Localização dos arquivos da tabela solicidata--*/
   pont_tabelas = fopen("tabelas//listaTabelas.txt", "r");
   if (pont_tabelas == NULL){
     printf("ERRO! O arquivo de nomes não foi aberto.\n");
@@ -104,12 +104,11 @@ int criarLinha(){
       linha_atual++;
     }
   }
-  printf("nao\n");
   fclose(pont_tabelas);
   free(nomeTabela);
   nomeTabela = NULL;
 
-  /*Contagem da quantidade de cada tipo de dados da tabela*/
+  /*--Contagem da quantidade de cada tipo de dados da tabela--*/
   pont_tamanho_tabela = fopen(tamanho, "r");
   printf("aqui\n");
   if (pont_tamanho_tabela == NULL){
@@ -138,7 +137,8 @@ int criarLinha(){
   }
 
   fclose(pont_tamanho_tabela);
-  /*Define estrutura nova linha, que possui arrays que guardam os atributos da linha a partir dos tipos de dados*/
+  /*--Define estrutura nova linha, que possui arrays que guardam
+      os atributos da linha a partir dos tipos de dados*/
   typedef struct linha Nova_Linha;
   struct linha{
     int inteiros[_inteiro];
@@ -149,13 +149,13 @@ int criarLinha(){
   Nova_Linha nl;
   Nova_Linha temp;                                                       //Será necessário na verificação da chave primária
 
-  /*Contadores dos tipos de dados*/
+  /*--Contadores dos tipos de dados--*/
   _inteiro = 0;
   _double = 0;
   _char = 0;
   _string = 0;
 
-  /*Solicita a chave a chave primaria*/
+  /*--Solicita a chave primaria--*/
   pont_tamanho_tabela = fopen(tamanho, "r");
   fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela);
   fclose(pont_tamanho_tabela);
@@ -173,6 +173,7 @@ int criarLinha(){
     printf("ERRO! O arquivo de dados não foi aberto.\n");
     exit(0);
   }else{
+    /*--Verifica se a chave fornecida é única--*/
     while (fread(&temp, sizeof(Nova_Linha), 1, pont_dados_tabela) == 1 ){
       if (temp.inteiros[0] == nl.inteiros[_inteiro]) {
         printf("ERRO! Chave primária solicidata já foi cadastrada em outra linha.\n");
@@ -205,7 +206,7 @@ int criarLinha(){
   linha_atual = 1;
   fclose(pont_dados_tabela);
 
-  /*Solicita os atributos da tabela*/
+  /*--Solicita valores a partir dos atributos da tabela--*/
   pont_tamanho_tabela = fopen(tamanho, "r");
   while (fread(&atr, sizeof(Tamanho_Atributo), 1, pont_tamanho_tabela) == 1 ) {             //Leitura enquanto houver elementos da estrutura tamanho de atributo da respectiva tabela
     switch(atr.tamanho){
@@ -216,7 +217,7 @@ int criarLinha(){
       _char++;
       break;
       case 4:
-      if (linha_atual == 1) {
+      if (linha_atual == 1) {                                                   //O primeiro inteiro já foi lido, refere-se a chave primária
         linha_atual++;
         _inteiro++;
       }else{
@@ -250,7 +251,8 @@ int criarLinha(){
   free(tabelaEscolhida);
   tabelaEscolhida = NULL;
 
-  /*Salva a estrutura com os valores dos atribu da linha no respectivo arquivo ed dados*/
+  /*--Salva a estrutura com os valores dos atributos
+      da tabela no respectivo arquivo ed dados--*/
   pont_dados_tabela = fopen(dados, "a");
   if(fwrite(&nl, sizeof(Nova_Linha), 1, pont_dados_tabela) != 1){
     printf("ERRO! Escrita do arquivo!\n");

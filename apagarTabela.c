@@ -9,6 +9,7 @@ int apagarTabela(){
   char * tamanho;
 
   char * nomeTabela = malloc(21*sizeof(char));                                  //Reserva memória para identificação dos nomes de tabelas contidos no arquivo arquivo
+  if(nomeTabela == NULL){
     printf("ERRO! Memória não alocada.");
     exit(0);
   }
