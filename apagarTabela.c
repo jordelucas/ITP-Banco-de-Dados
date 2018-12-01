@@ -1,29 +1,28 @@
 int apagarTabela(){
   cabecalho();
-  /*ponteiros para o tipo arquivo*/
+  /*--Ponteiros para o tipo arquivo--*/
   FILE * pont_tabelas;
   FILE * pont_temporario;
 
-  /*ponteiros para identificação de onde se encontram os arquivos da tabela solicitada*/
+  /*--Ponteiros para identificação de onde se encontram os arquivos da tabela solicitada--*/
   char * dados;
   char * tamanho;
 
-  char * nomeTabela = malloc(21*sizeof(char));                                  //reserva memória para identificação da tabela localizada no arquivo
-  if(nomeTabela == NULL){
+  char * nomeTabela = malloc(21*sizeof(char));                                  //Reserva memória para identificação dos nomes de tabelas contidos no arquivo arquivo
     printf("ERRO! Memória não alocada.");
     exit(0);
   }
 
   char respSN;                                                                  //variável para respostas Sim ou Não do usuário
 
-  /*Variáveis auxiliades para leitura de arquivos*/
+  /*--Variáveis auxiliades para leitura de arquivos--*/
   int linha_escolhida = 0;
   int ordem;
   int linha_atual = 1;
 
   printf("---APAGAR TABELAS---\n\n");
 
-  /*Lista das tabelas cadastradas*/
+  /*--Lista das tabelas cadastradas--*/
   do{
     pont_tabelas = fopen("tabelas//listaTabelas.txt", "r");
     if (pont_tabelas == NULL){
@@ -55,7 +54,7 @@ int apagarTabela(){
         fflush(stdin);
         printf("\nQual tabela deseja apagar? ");
         scanf("%d", &linha_escolhida);
-        if (linha_escolhida < 1 || linha_escolhida > ordem) {                   //Controle de que o indice solicitado seja um dos exibidos na tela
+        if (linha_escolhida < 1 || linha_escolhida > ordem) {                   //Controle de que o indice solicitado seja um dos exibidos
           cabecalho();
           printf("---APAGAR TABELAS---\n\n");
           printf("*Opção Inválida!\n");
@@ -67,7 +66,10 @@ int apagarTabela(){
     }
   } while (linha_escolhida < 1 || linha_escolhida > ordem);
 
-  /*Localização dos arquivos da tabela solicidata e do nome da tabela no arquivo listaTabelas*/
+  /*--Localização dos arquivos da tabela solicidata e do
+      nome da tabela no arquivo listaTabelas. O arquivo
+      temporário guardará todos os nomes exceto o da
+      tabela que o usuário deseja apagar--*/
   pont_temporario = fopen("tabelas//temporario.txt", "w");
   pont_tabelas = fopen("tabelas//listaTabelas.txt", "r");
   if (pont_tabelas == NULL || pont_temporario == NULL){
@@ -75,10 +77,10 @@ int apagarTabela(){
     exit(0);
   }else{
     while(fgets(nomeTabela, 20, pont_tabelas) != NULL){
-      if (linha_atual == linha_escolhida) {
+      if (linha_atual == linha_escolhida) {                                     //Busca pelo indice que representa o nome da tabela escolhida
         nomeTabela[strcspn(nomeTabela, "\n")] = 0;                              //retira o '\n'
-        dados = diretorioDados(nomeTabela);
-        tamanho = diretorioTamanhos(nomeTabela);
+        dados = diretorioDados(nomeTabela);                                     //Obtemos o respectivo diretório do arquivo com os dados da tabale
+        tamanho = diretorioTamanhos(nomeTabela);                                //Obtemos o respectivo diretório do arquivo com os tamanhos dos tipos de dados da tabela
         linha_atual++;
         continue;
       }
@@ -96,6 +98,9 @@ int apagarTabela(){
   free(nomeTabela);
   nomeTabela = NULL;
 
+  /*--Será excluído todo o arquivo que ainda contém o nome
+      da tabela indesejada. Já o arquivo temporário será
+      renomeado--*/
   remove("tabelas//listaTabelas.txt");
   rename("tabelas//temporario.txt", "tabelas//listaTabelas.txt");
 
