@@ -221,10 +221,12 @@ int pesquisarValor(){
 	cabecalho();
 	printf("---PESQUISAR VALOR--\n\n");
 	printf("Pesquisando valores de '%s' na tabela '%s'!\n", nomeAtributoEscolhido, tabelaEscolhida);
-	printf("Escolha uma das opções: \n\n");
 
 	/*--Lista das opções de pesquisas--*/
-	if (tipoAtributoEscolhido == 4 || tipoAtributoEscolhido == 8){
+	if (tipoAtributoEscolhido != 4 && tipoAtributoEscolhido != 8){
+		printf("\n*Infelizmente a opção de pesquisa de strings não foi adicionada.*\n");
+	}else{
+		printf("Escolha uma das opções: \n\n");
 		do{
 			printf("1. valores maior que o valor informado\n");
 			printf("2. valores maior ou igual que o valor informado\n");
@@ -520,8 +522,6 @@ int pesquisarValor(){
 			printf("Opção Inválida!\n");
 			break;
 		}
-	}else{
-		printf("ok\n");
 	}
 
 	printf("\nDeseja continuar pesquisando valores(s/n)? ");
