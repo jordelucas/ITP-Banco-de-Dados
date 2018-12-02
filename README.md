@@ -3,11 +3,17 @@
 No SGBD ITP desenvolvido, foram inseridas todas as operações solicitadas, estando elas disponíveis em lista ordenada já no menu principal. São elas:
 
 1- Criar tabela
+
 2- Listar tabelas
+
 3- Criar linha
+
 4- Listar dados
+
 5- Pesquisar valor
+
 6- Apagar valor
+
 7- Apagar Tabela
 
 Contudo, na funcionalidade “Pesquisar valor”, caso o usuário solicite uma pesquisa de dados a partir de uma varável do tipo string, o sistema exibirá a seguinte mensagem: “Infelizmente a opção de pesquisa de strings não foi adicionada”, sendo este o único item obrigatório indisponível no SGBD.
